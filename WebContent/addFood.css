@@ -1,0 +1,12 @@
+.navbar-inverse{
+    border-radius: 0px;
+    margin-bottom: 100px;
+}
+
+#foodForm{
+	width: 40%;
+}
+
+body{
+	font-family: 'Raleway', sans-serif;
+}

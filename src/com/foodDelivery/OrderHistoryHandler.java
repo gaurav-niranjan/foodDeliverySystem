@@ -1,0 +1,105 @@
+package com.foodDelivery;
+
+import java.io.IOException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.login.Customer;
+
+
+@WebServlet("/OrderHistoryHandler")
+public class OrderHistoryHandler extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		HttpSession session = request.getSession();
+		Customer customerObj = (Customer) session.getAttribute("customerObj");
+		List<Food> allFoods = (List<Food>) session.getAttribute("allFoods");
+		int customerID = customerObj.getCustomer_id();
+		List<OrderDetails> orderDetails = new ArrayList<>();
+		
+		try {
+			Connection con = sqlConnection();
+			PreparedStatement st = con.prepareStatement("select * from orders where customer_id = ?",ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			st.setInt(1, customerID);
+			ResultSet rs = st.executeQuery();
+			System.out.println("First query executed");
+			if(!rs.next()) {
+				//no previous orders made by this customer
+				response.sendRedirect("noOrders.jsp");
+				return;
+			}
+			System.out.println("Before while loop");
+			rs.beforeFirst();
+			
+			while(rs.next()) {
+				int orderID = rs.getInt(1);
+				String createdTime = rs.getString(3);
+				int total = rs.getInt(4);
+				OrderDetails details = new OrderDetails(orderID, createdTime, total);
+				fillOrderDetails(details,allFoods);
+				orderDetails.add(details);
+				System.out.println("Inside while loop");
+			}
+			session.setAttribute("order_history", orderDetails);
+			response.sendRedirect("orderHistory.jsp");
+			
+		} catch (ClassNotFoundException | SQLException e) {
+			//sql erros...redirect
+			response.sendRedirect("sqlError.jsp");
+			
+			e.printStackTrace();
+		}
+		
+		
+		
+	}
+	
+	private OrderDetails fillOrderDetails(OrderDetails details, List<Food> allFoods) throws ClassNotFoundException, SQLException {
+		// TODO Auto-generated method stub
+		Connection con = sqlConnection();
+		String query = "SELECT * FROM order_details WHERE order_id=?";
+		PreparedStatement st = con.prepareStatement(query);
+		System.out.println("fill ORder details method");
+		st.setInt(1, details.getOrderID());
+		System.out.println("Order ID =  " +details.getOrderID());
+		ResultSet rs = st.executeQuery();
+		System.out.println("Second query executed");
+		while(rs.next())
+		{
+			int foodId = rs.getInt(2);
+			int quantity = rs.getInt(3);
+			Food food = getFoodFromId(allFoods,foodId);
+			details.addFoodItem(food, quantity);
+		}
+		return null;
+	}
+
+	private Food getFoodFromId(List<Food> allFoods, int foodId) {
+		// TODO Auto-generated method stub
+		for(Food food : allFoods)
+		{
+			if(food.getId() == foodId)
+				return food;
+		}
+		return null;
+	}
+
+	private Connection sqlConnection() throws ClassNotFoundException, SQLException {
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/foodDelivery","root","");
+		return con;
+	}
+
+
+}

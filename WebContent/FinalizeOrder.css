@@ -1,0 +1,18 @@
+.navbar-inverse{
+    border-radius: 0px;
+    margin-bottom: 100px;
+}
+
+#foodList{
+	width: 30%;
+}
+
+.buttons{
+	display:flex;
+	justify-content: space-between;
+}
+
+
+body{
+	font-family: 'Raleway', sans-serif;
+}

@@ -1,0 +1,37 @@
+.navbar-inverse{
+    border-radius: 0px;
+    margin-bottom: 100px;
+}
+
+body{
+	font-family: 'Raleway', sans-serif;
+}
+.col-md-3{
+    text-align: center;
+}
+
+.row{
+    margin-bottom: 40px;
+}
+
+#row1{
+    margin-left: 30px;
+    margin-right: 30px;
+}
+#row2{
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+.row img{
+    height: 30vh;
+    margin-bottom: 2vh;
+}
+.row input{
+    margin-top: 2vh;
+    font-weight: 1000;
+}
+
+#orderFinalDiv{
+	text-align: center;
+}
