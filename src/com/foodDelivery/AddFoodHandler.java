@@ -31,6 +31,10 @@ public class AddFoodHandler extends HttpServlet {
 			System.out.println(paramName);
 		}
 		
+		HttpSession session = request.getSession();
+		if(session.getAttribute("adminObj") == null) {
+			response.sendRedirect("home.jsp");
+		}
 		
 		
 		 String foodName = request.getParameter("foodName"); 
@@ -53,7 +57,7 @@ public class AddFoodHandler extends HttpServlet {
 					response.sendRedirect("priceFormat.jsp");
 					return;
 				}
-				con.close();
+				
 				PreparedStatement st = con.prepareStatement("insert into food(food_name,img_url,price) values (?,?,?)  ");
 				int price = Integer.parseInt(priceString);
 				st.setString(1, foodName);
@@ -62,6 +66,8 @@ public class AddFoodHandler extends HttpServlet {
 				
 				int i = st.executeUpdate();
 				System.out.println(i + " records inserted");
+				con.close();
+				response.sendRedirect("addFoodSuccess.jsp");
 				
 				
 				
@@ -70,10 +76,13 @@ public class AddFoodHandler extends HttpServlet {
 		 	{
 		 		//redirect to a specific page to show this error
 		 		response.sendRedirect("sqlError.jsp");
+		 		ex.printStackTrace();
 		 		return;
 		 	}
 		 	catch(Exception e) {
+		 		response.sendRedirect("errorPage.jsp");
 					e.printStackTrace();
+					return;
 			}
 		 
 		

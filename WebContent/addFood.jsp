@@ -16,10 +16,26 @@
 </head>
 <body>
 
+<%
+response.setHeader("Cache-Control","no-cache, no-store, must-revalidate");
+//HTTP 1.1	
+
+response.setHeader("Pragma","no-cache"); //HTTP 1.0
+
+response.setHeader("Expires","0"); //Proxies
+
+	if(session.getAttribute("adminObj") == null){
+		response.sendRedirect("home.jsp");
+		return;
+	}
+
+
+%>
+
    <nav class="navbar navbar-inverse">
         <div class="container-fluid">
           <div class="navbar-header">
-            <a class="navbar-brand" href="#">WebSiteName</a>
+            <a class="navbar-brand" href="home.jsp">WebSiteName</a>
           </div>
           <ul class="nav navbar-nav">
             <li class="active"><a href="#">Home</a></li>

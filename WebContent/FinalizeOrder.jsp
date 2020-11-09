@@ -51,10 +51,10 @@ if(session.getAttribute("usermail") == null || session.getAttribute("foodCart") 
 	
 %>
 
-<nav class="navbar navbar-inverse">
+    <nav class="navbar navbar-inverse">
         <div class="container-fluid">
           <div class="navbar-header">
-            <a class="navbar-brand" href="#">WebSiteName</a>
+            <a class="navbar-brand" href="home.jsp">WebSiteName</a>
           </div>
           <ul class="nav navbar-nav">
             <li class="active"><a href="#">Home</a></li>
@@ -62,11 +62,18 @@ if(session.getAttribute("usermail") == null || session.getAttribute("foodCart") 
             <li><a href="#">Page 2</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+          	<c:if test="${usermail!=null}">
+            	<li><a href="OrderHistoryHandler"><span class="glyphicon glyphicon-user"></span>${customerObj.getCustomer_name()}</a></li>
+            </c:if>
+            <c:if test="${usermail!=null}" >
+            	<li><a href="Logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+            </c:if>
           </ul>
         </div>
       </nav>
+      
+      
+      
       <c:choose>
       	<c:when test="${cart.getCart().size() == 0}">
       		<div class="container-fluid">

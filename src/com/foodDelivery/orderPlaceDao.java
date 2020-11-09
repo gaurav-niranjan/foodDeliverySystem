@@ -45,7 +45,14 @@ public class orderPlaceDao extends HttpServlet {
 		int customerID = customerObj.getCustomer_id();
 		int total_price = cart.calculateTotalPrice();
 		int orderId = createOrderInDb(customerID,total_price);
-		insertOrderDetails(cart, orderId);
+		try {
+			insertOrderDetails(cart, orderId);
+		}
+		catch(ClassNotFoundException | SQLException e) {
+			response.sendRedirect("sqlError.jsp");
+			return;
+		}
+		
 		System.out.println(orderId);
 		
 		response.sendRedirect("OrderSuccess.jsp");
@@ -55,30 +62,25 @@ public class orderPlaceDao extends HttpServlet {
 		
 	}
 	
-	private void insertOrderDetails(Cart cart, int orderId) {
+	private void insertOrderDetails(Cart cart, int orderId) throws ClassNotFoundException, SQLException {
 		// TODO Auto-generated method stub
 		HashMap<Food,Integer> foodCart = cart.getCart();
 		Iterator it = foodCart.entrySet().iterator();
 		
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/foodDelivery","root","");
-			while(it.hasNext()) {
-				Map.Entry pair = (Map.Entry)it.next();
-				Food food = (Food)pair.getKey();
-				int foodId = food.getId();
-				int quantity = (Integer)pair.getValue();
-				saveOrderDetails(orderId,foodId,quantity,con);
+		
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/foodDelivery","root","");
+		while(it.hasNext()) {
+			Map.Entry pair = (Map.Entry)it.next();
+			Food food = (Food)pair.getKey();
+			int foodId = food.getId();
+			int quantity = (Integer)pair.getValue();
+			saveOrderDetails(orderId,foodId,quantity,con);
+		
+		}
 			
-			}
-			
-		}
-		catch(SQLException e) { //sql error
-			e.printStackTrace();
-		}
-		catch(ClassNotFoundException e) { //db connection error
-			e.printStackTrace();
-		}
+		
+		
 		
 	}
 

@@ -59,6 +59,7 @@ public class OrderHistoryHandler extends HttpServlet {
 			response.sendRedirect("sqlError.jsp");
 			
 			e.printStackTrace();
+			return;
 		}
 		
 		

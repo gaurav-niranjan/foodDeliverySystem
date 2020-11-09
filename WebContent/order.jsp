@@ -57,7 +57,7 @@ if(session.getAttribute("usermail") == null || session.getAttribute("foodCart") 
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
           <div class="navbar-header">
-            <a class="navbar-brand" href="#">WebSiteName</a>
+            <a class="navbar-brand" href="home.jsp">WebSiteName</a>
           </div>
           <ul class="nav navbar-nav">
             <li class="active"><a href="#">Home</a></li>
@@ -66,7 +66,7 @@ if(session.getAttribute("usermail") == null || session.getAttribute("foodCart") 
           </ul>
           <ul class="nav navbar-nav navbar-right">
           	<c:if test="${usermail!=null}">
-            	<li><a href="OrderHistoryHandler"><span class="glyphicon glyphicon-user"></span>${customerObj.getCustomer_name()}</a></li>
+            	<li><a href="OrderHistoryHandler"><span class="glyphicon glyphicon-user"></span> ${customerObj.getCustomer_name()}</a></li>
             </c:if>
             <c:if test="${usermail!=null}" >
             	<li><a href="Logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
@@ -79,14 +79,14 @@ if(session.getAttribute("usermail") == null || session.getAttribute("foodCart") 
 
 <form action="orderHandler" method="POST">
       <div class = "container-fluid">
-          <div class = "row" id="row1">
+          <div class = "row" id="row1" style="display:flex; flex-wrap: wrap;">
           
           <c:forEach items = "${allFoods}" var="foodItem">
          
          
-          <div class = "col-md-3">
+          <div class = "col-md-3" id="foodDisplay" style="margin-bottom: 30px">
                   <img src="${foodItem.url }" class="img-thumbnail" >
-                  <div>${foodItem.name}</div>
+                  <div>${foodItem.name} ${foodItem.price}</div>
                   
                   <c:if test="${cart.getCart().get(foodItem) != null}">
                   	<c:out value="${cart.getCart().get(foodItem)}"></c:out>

@@ -10,28 +10,12 @@
     
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 	<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="login.css">
+	<link rel="stylesheet" href="adminLogin.css">
 	
-    <title>Login</title>
+    <title>Admin Login</title>
 
 </head>
 <body>
-<%
-response.setHeader("Cache-Control","no-cache, no-store, must-revalidate");
-//HTTP 1.1	
-
-response.setHeader("Pragma","no-cache"); //HTTP 1.0
-
-response.setHeader("Expires","0"); //Proxies
-
-	if(session.getAttribute("usermail") != null){
-		response.sendRedirect("home.jsp");
-		return;
-	}
-
-
-%>
-
 
 <nav class="navbar navbar-inverse">
         <div class="container-fluid">
@@ -52,16 +36,15 @@ response.setHeader("Expires","0"); //Proxies
       </nav>
       
       
-      
       <div class="container">
     <div class="row">
         <div class="col-sm-6 col-md-4 col-md-offset-4">
-            <h1 class="text-center login-title">Sign in to continue</h1>
+            <h1 class="text-center login-title">Admin Sign in</h1>
             <div class="account-wall">
                 <img class="profile-img" src="https://cdn3.iconfinder.com/data/icons/google-material-design-icons/48/ic_account_circle_48px-512.png"
                     alt="">
-                <form class="form-signin" action="Login" method="POST">
-                <input type="text" class="form-control" name="email" placeholder="Email" required autofocus >
+                <form class="form-signin" action="AdminLogin" method="POST">
+                <input type="text" class="form-control" name="username" placeholder="Username" required autofocus >
                 <input type="password" class="form-control" name="pass" placeholder="Password" required>
                 <button class="btn btn-lg btn-primary btn-block" type="submit">
                     Sign in</button>
@@ -73,23 +56,10 @@ response.setHeader("Expires","0"); //Proxies
         </div>
     	</div>
 	</div>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+	
+	
+	
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 

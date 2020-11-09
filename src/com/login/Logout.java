@@ -23,6 +23,7 @@ public class Logout extends HttpServlet {
 		session.removeAttribute("foodCart");
 		session.removeAttribute("cart");
 		session.removeAttribute("objects");
+		session.removeAttribute("adminObj");
 		session.invalidate();
 		response.sendRedirect("login.jsp");
 		

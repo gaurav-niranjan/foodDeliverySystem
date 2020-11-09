@@ -45,7 +45,7 @@ cart.cart = new HashMap<>();
 	<nav class="navbar navbar-inverse">
         <div class="container-fluid">
           <div class="navbar-header">
-            <a class="navbar-brand" href="#">WebSiteName</a>
+            <a class="navbar-brand" href="home.jsp">WebSiteName</a>
           </div>
           <ul class="nav navbar-nav">
             <li class="active"><a href="#">Home</a></li>
@@ -54,7 +54,7 @@ cart.cart = new HashMap<>();
           </ul>
           <ul class="nav navbar-nav navbar-right">
           	<c:if test="${usermail!=null}">
-            	<li><a href="#"><span class="glyphicon glyphicon-user"></span>${customerObj.getCustomer_name()}</a></li>
+            	<li><a href="OrderHistoryHandler"><span class="glyphicon glyphicon-user"></span>${customerObj.getCustomer_name()}</a></li>
             </c:if>
             <c:if test="${usermail!=null}" >
             	<li><a href="Logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
