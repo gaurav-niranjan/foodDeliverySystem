@@ -6,14 +6,16 @@ public class Customer {
 	public String customer_name;
 	public String customer_address;
 	public String customer_email;
+	public String customer_contact;
 	
 	
-	public Customer(int customer_id, String customer_name, String customer_address, String customer_email) {
+	public Customer(int customer_id, String customer_name, String customer_address, String customer_email,String customer_contact) {
 		super();
 		this.customer_id = customer_id;
 		this.customer_name = customer_name;
 		this.customer_address = customer_address;
 		this.customer_email = customer_email;
+		this.customer_contact = customer_contact;
 	}
 
 
@@ -54,6 +56,16 @@ public class Customer {
 
 	public void setCustomer_email(String customer_email) {
 		this.customer_email = customer_email;
+	}
+
+
+	public String getCustomer_contact() {
+		return customer_contact;
+	}
+
+
+	public void setCustomer_contact(String customer_contact) {
+		this.customer_contact = customer_contact;
 	}
 	
 	

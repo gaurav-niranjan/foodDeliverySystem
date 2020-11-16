@@ -1,4 +1,4 @@
-package com.foodDelivery;
+package com.login;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -13,38 +13,47 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
-@WebServlet("/DisableFoodHandler")
-public class DisableFoodHandler extends HttpServlet {
+@WebServlet("/ChangeAddress")
+public class ChangeAddress extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session = request.getSession();
-		String foodItem = request.getParameter("item");
 		
-		if(session.getAttribute("adminObj") == null || foodItem == null) {
-			response.sendRedirect("home.jsp");
+		if(session.getAttribute("usermail") == null) {
+			response.sendRedirect("login.jsp");
 			return;
 		}
 		
+		Customer customerObj = (Customer) session.getAttribute("customerObj");
 		
+		String address = request.getParameter("address");
+		
+		customerObj.setCustomer_address(address);
+		
+		int customerID = customerObj.getCustomer_id();
+		
+		String sql = "update customers set address = ? where customer_id = ?";
 		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/foodDelivery","root","");
-			PreparedStatement st = con.prepareStatement("update food set isActive=false where food_name = ?");
-			st.setString(1, foodItem);
-			int i = st.executeUpdate();
-			System.out.println(i + " records deleted");
-			if(i == 0) {
-				response.sendRedirect("fooddisableError.jsp");  
-			}
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setString(1, address);
+			st.setInt(2, customerID);
+			int i  = st.executeUpdate();
+			System.out.println(i + " records updated");
 			con.close();
-			response.sendRedirect("fooddisableSuccess.jsp");
-		}
-		catch(Exception e) {
-			e.printStackTrace();
+			
 		}
 		
+		catch(Exception e) {
+			e.printStackTrace();
+			response.sendRedirect("sqlError.jsp");
+			return;
+		}
+		
+		response.sendRedirect("order.jsp");
 	}
 
 }

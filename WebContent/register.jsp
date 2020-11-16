@@ -37,20 +37,24 @@
 <form action="Register" method="POST">
 <div class="form-group">
     <label for="Username">Username</label>
-    <input type="text" class="form-control" name="Username" id="Username" placeholder="Enter Username">
+    <input type="text" class="form-control" name="Username" id="Username" placeholder="Enter Username" required>
   </div>
   <div class="form-group">
     <label for="email">Email address</label>
-    <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Enter email" >
+    <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Enter email" required>
     <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
   </div>
   <div class="form-group">
     <label for="password">Password</label>
-    <input type="password" class="form-control" name="password" id="password" placeholder="Password" minlength="6" >
+    <input type="password" class="form-control" name="password" id="password" placeholder="Password" minlength="6" required>
   </div>
   <div class="form-group">
     <label for="Address">Address</label>
-    <input type="text" class="form-control" name="Address" id="Address" placeholder="Address">
+    <input type="text" class="form-control" name="Address" id="Address" placeholder="Address" required>
+  </div>
+  <div class="form-group">
+    <label for="contact">Contact number</label>
+    <input type="text" class="form-control" name="contact" id="contact" pattern="[0-9]+" maxlenght="10" placeholder="Contact Number" required>
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>

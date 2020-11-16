@@ -44,9 +44,12 @@ public class createOrderPage extends HttpServlet {
 				String u = rs.getString("img_url");
 				String n = rs.getString("food_name");
 				int pr = rs.getInt("price");
-				Food f = new Food(id,u,pr,n);
-				allFoods.add(f);
-				
+				boolean isActive = rs.getBoolean("isActive");
+				if(isActive) {
+					Food f = new Food(id,u,pr,n);
+					allFoods.add(f);
+				}
+
 				System.out.println("Food with id "+ id + " found.");
 				
 			}

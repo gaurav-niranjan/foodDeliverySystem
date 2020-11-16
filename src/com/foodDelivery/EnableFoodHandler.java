@@ -12,9 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
-@WebServlet("/DisableFoodHandler")
-public class DisableFoodHandler extends HttpServlet {
+/**
+ * Servlet implementation class EnableFoodHandler
+ */
+@WebServlet("/EnableFoodHandler")
+public class EnableFoodHandler extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -31,20 +33,22 @@ public class DisableFoodHandler extends HttpServlet {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/foodDelivery","root","");
-			PreparedStatement st = con.prepareStatement("update food set isActive=false where food_name = ?");
+			PreparedStatement st = con.prepareStatement("update food set isActive=true where food_name = ?");
 			st.setString(1, foodItem);
 			int i = st.executeUpdate();
 			System.out.println(i + " records deleted");
 			if(i == 0) {
-				response.sendRedirect("fooddisableError.jsp");  
+				response.sendRedirect("foodEnableError.jsp");  
 			}
 			con.close();
-			response.sendRedirect("fooddisableSuccess.jsp");
+			response.sendRedirect("foodEnableSuccess.jsp");
 		}
 		catch(Exception e) {
 			e.printStackTrace();
 		}
 		
 	}
+		
+	
 
 }

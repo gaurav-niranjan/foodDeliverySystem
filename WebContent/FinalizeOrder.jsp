@@ -12,12 +12,11 @@
     
     
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    <link rel="stylesheet" href="FinalizeOrder.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/FinalizeOrder.css">
 	<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap" rel="stylesheet">
 	
     <title>Your Order</title>
 
-</head>
 </head>
 <body>
 <%
@@ -37,10 +36,10 @@ if(session.getAttribute("usermail") == null || session.getAttribute("foodCart") 
 
 	Cart cart = (Cart)session.getAttribute("foodCart");
 	
-	if(cart.cart.size() == 0){
+	/* if(cart.cart.size() == 0){
 		response.sendRedirect("home.jsp");
 		return;
-	}
+	} */
 	session.setAttribute("cart", cart);
 
 
@@ -63,7 +62,7 @@ if(session.getAttribute("usermail") == null || session.getAttribute("foodCart") 
           </ul>
           <ul class="nav navbar-nav navbar-right">
           	<c:if test="${usermail!=null}">
-            	<li><a href="OrderHistoryHandler"><span class="glyphicon glyphicon-user"></span>${customerObj.getCustomer_name()}</a></li>
+            	<li><a href="userPage.jsp"><span class="glyphicon glyphicon-user"></span>${customerObj.getCustomer_name()}</a></li>
             </c:if>
             <c:if test="${usermail!=null}" >
             	<li><a href="Logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
@@ -89,15 +88,29 @@ if(session.getAttribute("usermail") == null || session.getAttribute("foodCart") 
       			<ul class="list-group">
 					<c:forEach items="${cart.getCart().keySet()}" var="foodItem">
 						<li class="list-group-item">
+						
     					<span class="badge">${cart.getCart().get(foodItem)}</span>
-    						${foodItem.name}
+    					
+    						${foodItem.name},   Rs.${foodItem.price} each
   						</li>
 					</c:forEach>
 				</ul>
+				<div>Total Price = Rs. ${cart.calculateTotalPrice()}</div>
 				<div class="buttons">
 					<a href="orderPlaceDao"><button type="button" class="btn btn-success">Place Order</button>	</a>
 					<a href="order.jsp"><button type="button" class="btn btn-info">Modify</button></a>
 					<a href="Logout"><button type="button" class="btn btn-danger">Cancel and Logout</button></a>
+				</div>
+				
+				<div>
+				Delivered to :
+				<div>
+					${customerObj.getCustomer_address()}
+				</div>
+				<div>
+				<a href="changeAddress.jsp">Change current address</a>
+				
+				</div>
 				</div>
 					
       		</div>

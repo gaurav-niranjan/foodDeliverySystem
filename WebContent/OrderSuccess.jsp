@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="com.foodDelivery.Cart, java.util.List, com.foodDelivery.Food, java.util.*, com.foodDelivery.*" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -54,7 +55,7 @@ cart.cart = new HashMap<>();
           </ul>
           <ul class="nav navbar-nav navbar-right">
           	<c:if test="${usermail!=null}">
-            	<li><a href="OrderHistoryHandler"><span class="glyphicon glyphicon-user"></span>${customerObj.getCustomer_name()}</a></li>
+            	<li><a href="userPage.jsp"><span class="glyphicon glyphicon-user"></span>${customerObj.getCustomer_name()}</a></li>
             </c:if>
             <c:if test="${usermail!=null}" >
             	<li><a href="Logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>

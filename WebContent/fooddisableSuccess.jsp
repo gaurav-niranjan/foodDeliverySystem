@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<h3>Food Deleted Successfully</h3>
+<h3>Food Disabled Successfully</h3>
 <div>
 	<a href="AdminConsole.jsp">Go to console</a>
 </div>

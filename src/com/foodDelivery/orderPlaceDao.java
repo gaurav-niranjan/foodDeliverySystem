@@ -75,7 +75,8 @@ public class orderPlaceDao extends HttpServlet {
 			Food food = (Food)pair.getKey();
 			int foodId = food.getId();
 			int quantity = (Integer)pair.getValue();
-			saveOrderDetails(orderId,foodId,quantity,con);
+			int price = food.getPrice();
+			saveOrderDetails(orderId,foodId,price,quantity,con);
 		
 		}
 			
@@ -84,13 +85,14 @@ public class orderPlaceDao extends HttpServlet {
 		
 	}
 
-	private void saveOrderDetails(int orderId, int foodId, int quantity,Connection con) throws SQLException {
+	private void saveOrderDetails(int orderId, int foodId,int price, int quantity,Connection con) throws SQLException {
 		// TODO Auto-generated method stub
 		
-		PreparedStatement st = con.prepareStatement("insert into order_details values(?,?,?)");
+		PreparedStatement st = con.prepareStatement("insert into order_details values(?,?,?,?)");
 		st.setInt(1, orderId);
 		st.setInt(2, foodId);
-		st.setInt(3, quantity);
+		st.setInt(3, price);
+		st.setInt(4, quantity);
 		int rowsInserted = st.executeUpdate();
 		if(rowsInserted != 1) {
 			throw new SQLException();

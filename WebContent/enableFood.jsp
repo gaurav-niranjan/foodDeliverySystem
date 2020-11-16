@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,9 +11,9 @@
     
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 	<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="AdminConsole.css">
+	<link rel="stylesheet" href="disableFood.css">
 	
-    <title>Admin Console</title>
+    <title>Enable Food Item</title>
 
 </head>
 <body>
@@ -30,6 +31,7 @@ response.setHeader("Expires","0"); //Proxies
 		return;
 	}
 
+	
 
 %>
 
@@ -44,25 +46,30 @@ response.setHeader("Expires","0"); //Proxies
           <ul class="nav navbar-nav navbar-right">
           	<li><a href="adminLogin.jsp"><span class="glyphicon glyphicon-cog"></span> Admin Login</a></li>
             <li><a href="register.jsp"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-            <li><a href="Logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+            <li><a href="login.jsp"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
           </ul>
         </div>
       </nav>
       
+      
       <div class="container-fluid">
-      	<ul class="list-group">
-		  <li class="list-group-item"><a href="addFood.jsp">Add Food Item</a></li>
-		  <li class="list-group-item"><a href="EnableFoodPage">Enable Food Item</a></li>
-		  <li class="list-group-item"><a href="DisableFoodPage">Disable Food Item</a></li>
-		</ul>
+      	<h2>Delete Food Item</h2>
+      	<div class="container">
+      		<form action="EnableFoodHandler" method="POST">
+      			<select name="item">
+      				<c:forEach items = "${disabledFoods}" var="foodItem">
+      					<option value="${foodItem.name}">${foodItem.name}</option>
+      				</c:forEach>
+      			</select>
+      			<input type="submit" value="Enable selected food item" />
+      		</form>
+      	</div>
       </div>
-
 
 
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
 </body>
 </html>

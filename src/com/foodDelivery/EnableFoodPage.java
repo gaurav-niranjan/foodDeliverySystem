@@ -15,18 +15,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet("/DisableFoodPage")
-public class DisableFoodPage extends HttpServlet {
+/**
+ * Servlet implementation class EnableFoodPage
+ */
+@WebServlet("/EnableFoodPage")
+public class EnableFoodPage extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session = request.getSession();
-		
 		if(session.getAttribute("adminObj") == null) {
 			response.sendRedirect("home.jsp");
-			return;
 		}
-		List<Food> allFoods = new ArrayList<>();
+		
+		List<Food> disabledFoods = new ArrayList<>();
 		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -40,21 +42,21 @@ public class DisableFoodPage extends HttpServlet {
 				String n = rs.getString("food_name");
 				int pr = rs.getInt("price");
 				boolean isActive = rs.getBoolean("isActive");
-				if(isActive) {
+				if(!isActive) {
 					Food f = new Food(id,u,pr,n);
-					allFoods.add(f);
+					disabledFoods.add(f);
 				}
 				
 				
 				System.out.println("Food with id "+ id + " found.");
 				
 			}
-			System.out.println("Number of all foods = " + allFoods.size());
+			System.out.println("Number of all foods = " + disabledFoods.size());
 			
 			
-			session.setAttribute("allFoods", allFoods);
+			session.setAttribute("disabledFoods", disabledFoods);
 			
-			response.sendRedirect("disableFood.jsp");
+			response.sendRedirect("enableFood.jsp");
 		}
 		catch(Exception e) {
 			e.printStackTrace();
@@ -62,7 +64,7 @@ public class DisableFoodPage extends HttpServlet {
 			return;
 		}
 		
+		
 	}
 
-	
 }

@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h3>Error in disabling Food item.</h3>
-	<div><a href="AdminConsole.jsp">Go to Admin Console</a></div>
+	<h3>Error in enabling food item.</h3>
+	<div><a href="AdminConsole.jsp">Go to Console</a></div>
 </body>
 </html>

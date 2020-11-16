@@ -27,7 +27,8 @@ import java.sql.ResultSet;
 					String c_name = rs.getString("name");
 					String c_address = rs.getString("address");
 					String c_email = rs.getString("email");
-					Customer customerObj = new Customer(c_id,c_name,c_address,c_email);
+					String c_no = rs.getString("contact_no");
+					Customer customerObj = new Customer(c_id,c_name,c_address,c_email,c_no);
 					return customerObj;
 				}
 				
