@@ -43,6 +43,8 @@ public class DisableFoodHandler extends HttpServlet {
 		}
 		catch(Exception e) {
 			e.printStackTrace();
+			response.sendRedirect("sqlError.jsp");
+			return;
 		}
 		
 	}

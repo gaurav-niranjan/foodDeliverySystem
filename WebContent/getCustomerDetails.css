@@ -1,0 +1,13 @@
+.navbar-inverse{
+    border-radius: 0px;
+    margin-bottom: 100px;
+}
+
+input{
+	width: 20vw;
+}
+
+
+body{
+	font-family: 'Raleway', sans-serif;
+}

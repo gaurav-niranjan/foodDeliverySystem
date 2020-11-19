@@ -23,6 +23,10 @@ public class OrderHistoryHandler extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session = request.getSession();
+		if(session.getAttribute("usermail")==null || session.getAttribute("customerObj")==null) {
+			response.sendRedirect("login.jsp");
+			return;
+		}
 		Customer customerObj = (Customer) session.getAttribute("customerObj");
 		//List<Food> allFoods = (List<Food>) session.getAttribute("allFoods");
 		int customerID = customerObj.getCustomer_id();
@@ -35,13 +39,13 @@ public class OrderHistoryHandler extends HttpServlet {
 			PreparedStatement st = con.prepareStatement("select * from orders where customer_id = ?",ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			st.setInt(1, customerID);
 			ResultSet rs = st.executeQuery();
-			System.out.println("First query executed");
+			
 			if(!rs.next()) {
 				//no previous orders made by this customer
 				response.sendRedirect("noOrders.jsp");
 				return;
 			}
-			System.out.println("Before while loop");
+			
 			rs.beforeFirst();
 			
 			while(rs.next()) {
@@ -50,8 +54,9 @@ public class OrderHistoryHandler extends HttpServlet {
 				int total = rs.getInt(4);
 				OrderDetails details = new OrderDetails(orderID, createdTime, total);
 				fillOrderDetails(details,allFoodsinDB);
+				fillDeliveryMan(details,con);
 				orderDetails.add(details);
-				System.out.println("Inside while loop");
+				
 			}
 			session.setAttribute("order_history", orderDetails);
 			response.sendRedirect("orderHistory.jsp");
@@ -68,6 +73,16 @@ public class OrderHistoryHandler extends HttpServlet {
 		
 	}
 	
+	private void fillDeliveryMan(OrderDetails details, Connection con) throws SQLException {
+		PreparedStatement st = con.prepareStatement("select * from delivery_details where order_id = ?");
+		st.setInt(1, details.getOrderID());
+		ResultSet rs = st.executeQuery();
+		while(rs.next()) {
+			details.setDeliveryMan(rs.getInt("delivery_man_id"), rs.getString("name"), rs.getString("contact_num"));
+		}
+		
+	}
+
 	private void getFoodsInDB(Connection con, List<Food> allFoodsinDB) throws SQLException {
 		
 		
@@ -90,11 +105,11 @@ public class OrderHistoryHandler extends HttpServlet {
 		Connection con = sqlConnection();
 		String query = "SELECT * FROM order_details WHERE order_id=?";
 		PreparedStatement st = con.prepareStatement(query);
-		System.out.println("fill ORder details method");
+		
 		st.setInt(1, details.getOrderID());
-		System.out.println("Order ID =  " +details.getOrderID());
+		
 		ResultSet rs = st.executeQuery();
-		System.out.println("Second query executed");
+		
 		while(rs.next())
 		{
 			int foodId = rs.getInt(2);

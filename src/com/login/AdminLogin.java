@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -39,7 +40,9 @@ public class AdminLogin extends HttpServlet {
 				String a_name = rs.getString("username");
 				Admin adminObj = new Admin(a_id,a_name);
 				session.setAttribute("adminObj", adminObj);
+				logAdminActibity(adminObj,con);
 				response.sendRedirect("AdminConsole.jsp");
+				con.close();
 				return;
 			}
 			else {
@@ -50,6 +53,17 @@ public class AdminLogin extends HttpServlet {
 			e.printStackTrace();
 			response.sendRedirect("sqlError.jsp");
 		}
+		
+	}
+
+	private void logAdminActibity(Admin adminObj, Connection con) throws SQLException {
+		
+		PreparedStatement st = con.prepareStatement("insert into admin_activity(admin_id) values (?)");
+		st.setInt(1, adminObj.getAdmin_id());
+		int i = st.executeUpdate();
+		System.out.println(i + " admin activity logged");
+		return;
+		
 		
 	}
 

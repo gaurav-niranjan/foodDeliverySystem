@@ -26,6 +26,7 @@ public class EnableFoodPage extends HttpServlet {
 		HttpSession session = request.getSession();
 		if(session.getAttribute("adminObj") == null) {
 			response.sendRedirect("home.jsp");
+			return;
 		}
 		
 		List<Food> disabledFoods = new ArrayList<>();

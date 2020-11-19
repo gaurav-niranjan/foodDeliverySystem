@@ -2,11 +2,14 @@ package com.foodDelivery;
 
 import java.util.HashMap;
 
+import com.login.Delivery_man;
+
 public class OrderDetails {
 	public int orderID;
 	Cart cart;
 	String created_time;
 	int totalPrice;
+	Delivery_man deliveryMan;
 	
 	
 	public OrderDetails(int id, String createdTime, int total) {
@@ -53,6 +56,16 @@ public class OrderDetails {
 	public void setTotalPrice(int totalPrice) {
 		this.totalPrice = totalPrice;
 	}
+	
+	public void setDeliveryMan(int id, String name, String contact_num) {
+		deliveryMan = new Delivery_man(id, contact_num, name);
+	}
+
+	public Delivery_man getDeliveryMan() {
+		return deliveryMan;
+	}
+	
+	
 	
 	
 }

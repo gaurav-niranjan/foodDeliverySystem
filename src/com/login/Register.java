@@ -40,7 +40,7 @@ public class Register extends HttpServlet {
 				return;
 			}
 			if(!validateContact(conatct_no)) {
-				response.sendError(10, "Contact number invalid");
+				response.sendRedirect("invalidContact.jsp");
 				return;
 			}
 			PreparedStatement st = con.prepareStatement(sql);

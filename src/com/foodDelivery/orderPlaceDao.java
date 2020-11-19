@@ -7,6 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -20,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.login.Customer;
+import com.login.Delivery_man;
 
 @WebServlet("/orderPlaceDao")
 public class orderPlaceDao extends HttpServlet {
@@ -42,18 +45,25 @@ public class orderPlaceDao extends HttpServlet {
 			response.sendRedirect("EmptyCart.jsp"); //cart is empty
 			return;
 		}
+		
+		
+		
 		int customerID = customerObj.getCustomer_id();
 		int total_price = cart.calculateTotalPrice();
 		int orderId = createOrderInDb(customerID,total_price);
 		try {
+			Delivery_man deliveryMan = assignDeliveryMan(orderId);
+			session.setAttribute("deliveryMan", deliveryMan);
 			insertOrderDetails(cart, orderId);
 		}
 		catch(ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
 			response.sendRedirect("sqlError.jsp");
 			return;
 		}
 		
 		System.out.println(orderId);
+		
 		
 		response.sendRedirect("OrderSuccess.jsp");
 		
@@ -62,6 +72,49 @@ public class orderPlaceDao extends HttpServlet {
 		
 	}
 	
+	private Delivery_man assignDeliveryMan(int orderId) throws ClassNotFoundException, SQLException {
+		
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/foodDelivery","root","");
+		PreparedStatement st = con.prepareStatement("select * from delivery_man where isActive=true order by last_order",ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+		ResultSet rs = st.executeQuery();
+		if(!rs.next()) {
+			//no delivery man found
+			throw new SQLException();
+		}
+		rs.beforeFirst();
+		rs.first();
+		int del_id = rs.getInt("delivery_man_id");
+		Delivery_man deliveryMan = new Delivery_man(rs.getInt("delivery_man_id"), rs.getString("contact_num"), rs.getString("name"));
+		
+		LocalDateTime myDateObj = LocalDateTime.now();
+	    
+	    DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+	    String formattedDate = myDateObj.format(myFormatObj);
+	    
+		
+		PreparedStatement st1 = con.prepareStatement("update delivery_man set last_order = ?, order_count = order_count + 1 where delivery_man_id = ?");
+		st1.setString(1, formattedDate);
+		st1.setInt(2, del_id);
+		
+		int i = st1.executeUpdate();
+		
+		insertDeliveryTable(con,orderId,del_id);
+		
+		return deliveryMan;
+		
+	}
+
+	private void insertDeliveryTable(Connection con, int orderId, int del_id) throws SQLException {
+		
+		PreparedStatement st = con.prepareStatement("insert into delivery values(?,?)");
+		st.setInt(1, orderId);
+		st.setInt(2, del_id);
+		int i = st.executeUpdate();
+		
+	}
+
 	private void insertOrderDetails(Cart cart, int orderId) throws ClassNotFoundException, SQLException {
 		// TODO Auto-generated method stub
 		HashMap<Food,Integer> foodCart = cart.getCart();

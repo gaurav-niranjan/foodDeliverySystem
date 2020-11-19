@@ -34,6 +34,7 @@ public class AddFoodHandler extends HttpServlet {
 		HttpSession session = request.getSession();
 		if(session.getAttribute("adminObj") == null) {
 			response.sendRedirect("home.jsp");
+			return;
 		}
 		
 		
@@ -58,11 +59,12 @@ public class AddFoodHandler extends HttpServlet {
 					return;
 				}
 				
-				PreparedStatement st = con.prepareStatement("insert into food(food_name,img_url,price) values (?,?,?)  ");
+				PreparedStatement st = con.prepareStatement("insert into food(food_name,img_url,price,isActive) values (?,?,?,?)  ");
 				int price = Integer.parseInt(priceString);
 				st.setString(1, foodName);
 				st.setString(2, img_url);
 				st.setInt(3, price);
+				st.setBoolean(4, true);
 				
 				int i = st.executeUpdate();
 				System.out.println(i + " records inserted");

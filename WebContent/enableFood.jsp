@@ -41,7 +41,7 @@ response.setHeader("Expires","0"); //Proxies
             <a class="navbar-brand" href="home.jsp">WebSiteName</a>
           </div>
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Admin Console</a></li>
+            <li class="active"><a href="AdminConsole.jsp">Admin Console</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
           	<li><a href="adminLogin.jsp"><span class="glyphicon glyphicon-cog"></span> Admin Login</a></li>

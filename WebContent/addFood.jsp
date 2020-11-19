@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,19 +33,17 @@ response.setHeader("Expires","0"); //Proxies
 
 %>
 
-   <nav class="navbar navbar-inverse">
+<nav class="navbar navbar-inverse">
         <div class="container-fluid">
           <div class="navbar-header">
             <a class="navbar-brand" href="home.jsp">WebSiteName</a>
           </div>
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#">Page 1</a></li>
-            <li><a href="#">Page 2</a></li>
+            <li class="active"><a href="AdminConsole.jsp">Admin Console</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+          	<li><a href="AdminConsole.jsp"><span class="glyphicon glyphicon-cog"></span> ${adminObj.getUsername()}</a></li>
+            <li><a href="Logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
           </ul>
         </div>
       </nav>

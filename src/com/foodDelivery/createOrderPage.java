@@ -21,6 +21,10 @@ public class createOrderPage extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session = request.getSession();
+		if(session.getAttribute("adminObj")!=null) {
+			response.sendRedirect("AdminConsole.jsp");
+			return;
+		}
 		if(session.getAttribute("usermail")==null || session.getAttribute("customerObj")==null) {
 			response.sendRedirect("login.jsp");
 			return;

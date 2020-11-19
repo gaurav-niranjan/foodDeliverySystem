@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,11 +40,10 @@ response.setHeader("Expires","0"); //Proxies
             <a class="navbar-brand" href="home.jsp">WebSiteName</a>
           </div>
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Admin Console</a></li>
+            <li class="active"><a href="AdminConsole.jsp">Admin Console</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-          	<li><a href="adminLogin.jsp"><span class="glyphicon glyphicon-cog"></span> Admin Login</a></li>
-            <li><a href="register.jsp"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+          	<li><a href="AdminConsole.jsp"><span class="glyphicon glyphicon-cog"></span> ${adminObj.getUsername()}</a></li>
             <li><a href="Logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
           </ul>
         </div>
@@ -54,6 +54,16 @@ response.setHeader("Expires","0"); //Proxies
 		  <li class="list-group-item"><a href="addFood.jsp">Add Food Item</a></li>
 		  <li class="list-group-item"><a href="EnableFoodPage">Enable Food Item</a></li>
 		  <li class="list-group-item"><a href="DisableFoodPage">Disable Food Item</a></li>
+		  <li class="list-group-item"><a href="addDeliveryMan.jsp">Add delivery man</a></li>
+		  <li class="list-group-item"><a href="DisableDeliveryManPage">Disable delivery man</a></li>
+		  <li class="list-group-item"><a href="EnableDeliveryManPage">Enable delivery man</a></li>
+		  <li class="list-group-item"><a href="TopFoods">View top 3 foods ordered</a></li>
+		  <li class="list-group-item"><a href="TopCustomers">View top 3 customers who places most orders</a></li>
+		  <li class="list-group-item"><a href="RecentOrders">View 5 most recent Orders</a></li>
+		  <li class="list-group-item"><a href="getCustomerDetails.jsp">Search Customer by email</a></li>
+		  <li class="list-group-item"><a href="getOrderDetails.jsp">Search Order by OrderID</a></li>
+		  <li class="list-group-item"><a href="AdminActivity">View admin activity</a></li>
+		  <li class="list-group-item"><a href="CustomerActivity">View customer activity</a></li>
 		</ul>
       </div>
 

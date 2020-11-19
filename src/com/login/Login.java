@@ -1,6 +1,11 @@
 package com.login;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -27,7 +32,9 @@ public class Login extends HttpServlet {
 				HttpSession session = request.getSession();
 				session.setAttribute("usermail", email);
 				session.setAttribute("customerObj", customerObj);
+				logCustomerActivity(customerObj);
 				response.sendRedirect("createOrderPage");
+				return;
 			}
 			else
 				response.sendRedirect("loginFailed.jsp");
@@ -35,8 +42,22 @@ public class Login extends HttpServlet {
 		catch(Exception e) {
 			e.printStackTrace();
 			response.sendRedirect("sqlError.jsp");
+			return;
 		}
 		
+	}
+
+	private void logCustomerActivity(Customer customerObj) throws ClassNotFoundException, SQLException {
+		
+		
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/foodDelivery","root","");
+			PreparedStatement st = con.prepareStatement("insert into customer_activity(customer_id) values(?)");
+			st.setInt(1, customerObj.getCustomer_id());
+			int i = st.executeUpdate();
+			System.out.println(i + " customer activity logged.");
+			return;
+			
 	}
 
 }

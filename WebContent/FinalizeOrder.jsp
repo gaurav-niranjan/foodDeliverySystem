@@ -56,9 +56,7 @@ if(session.getAttribute("usermail") == null || session.getAttribute("foodCart") 
             <a class="navbar-brand" href="home.jsp">WebSiteName</a>
           </div>
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#">Page 1</a></li>
-            <li><a href="#">Page 2</a></li>
+            <li class="active"><a href="#">Your Order</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
           	<c:if test="${usermail!=null}">
@@ -95,7 +93,7 @@ if(session.getAttribute("usermail") == null || session.getAttribute("foodCart") 
   						</li>
 					</c:forEach>
 				</ul>
-				<div>Total Price = Rs. ${cart.calculateTotalPrice()}</div>
+				<div>Total Price (incl. 16% tax) = Rs. ${cart.calculateTotalPrice() + ((16*cart.calculateTotalPrice())/100)}</div>
 				<div class="buttons">
 					<a href="orderPlaceDao"><button type="button" class="btn btn-success">Place Order</button>	</a>
 					<a href="order.jsp"><button type="button" class="btn btn-info">Modify</button></a>

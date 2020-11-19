@@ -38,9 +38,8 @@ if(session.getAttribute("usermail") == null || session.getAttribute("foodCart") 
             <a class="navbar-brand" href="home.jsp">Website Name</a>
           </div>
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#">Page 1</a></li>
-            <li><a href="#">Page 2</a></li>
+            <li class="active"><a href="#">Order History</a></li>
+            
           </ul>
           <ul class="nav navbar-nav navbar-right">
           	<c:if test="${usermail!=null}">
@@ -65,12 +64,13 @@ if(session.getAttribute("usermail") == null || session.getAttribute("foodCart") 
 				
 	  				<li class="list-group-item">
 	    				<span class="badge">${entry.value }</span>
-	    					${entry.key.name}
+	    					${entry.key.name} Rs. ${entry.key.price} each
 	  				</li>
    				
    				
 			</c:forEach>
-			<p class="h4">Total Price = ${orderObj.cart.calculateTotalPrice()}</p>
+			<p class="h4">Total Price (incl. 16% tax) = ${orderObj.cart.calculateTotalPrice() + ((16*orderObj.cart.calculateTotalPrice())/100)}</p>
+			<p class="h4">Delivered by: ${orderObj.getDeliveryMan().getName()}, Contact: ${orderObj.getDeliveryMan().getContact_num()}, ID:${orderObj.getDeliveryMan().getDelivery_man_id()} </p>
 			</ul>
 			<hr class="solid">
 		</c:forEach>
