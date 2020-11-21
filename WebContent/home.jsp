@@ -4,7 +4,7 @@
 <html>
 
 <head>
-        <title>Website Name</title>
+        <title>Daily Grill</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <link rel="stylesheet" href="home.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript" async></script>
@@ -16,7 +16,7 @@
 
 
 <div id="landing-header">
- 		<h1>Welcome to Website</h1>
+ 		<h1>Welcome to Daily Grill</h1>
 		<a href="createOrderPage" class="btn btn-lg btn-success">Order Now</a>
     </div>
     

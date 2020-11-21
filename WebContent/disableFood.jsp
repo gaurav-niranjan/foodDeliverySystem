@@ -38,7 +38,7 @@ response.setHeader("Expires","0"); //Proxies
 <nav class="navbar navbar-inverse">
         <div class="container-fluid">
           <div class="navbar-header">
-            <a class="navbar-brand" href="home.jsp">WebSiteName</a>
+            <a class="navbar-brand" href="home.jsp">Daily Grill</a>
           </div>
           <ul class="nav navbar-nav">
             <li class="active"><a href="AdminConsole.jsp">Admin Console</a></li>
@@ -53,7 +53,7 @@ response.setHeader("Expires","0"); //Proxies
       
       
       <div class="container-fluid">
-      	<h2>Delete Food Item</h2>
+      	<h2>Disable Food Item</h2>
       	<div class="container">
       		<form action="DisableFoodHandler" method="POST">
       			<select name="item">

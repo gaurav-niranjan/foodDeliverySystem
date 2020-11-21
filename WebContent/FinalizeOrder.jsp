@@ -53,7 +53,7 @@ if(session.getAttribute("usermail") == null || session.getAttribute("foodCart") 
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
           <div class="navbar-header">
-            <a class="navbar-brand" href="home.jsp">WebSiteName</a>
+            <a class="navbar-brand" href="home.jsp">Daily Grill</a>
           </div>
           <ul class="nav navbar-nav">
             <li class="active"><a href="#">Your Order</a></li>

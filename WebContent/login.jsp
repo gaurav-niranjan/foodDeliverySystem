@@ -37,7 +37,7 @@ response.setHeader("Expires","0"); //Proxies
 <nav class="navbar navbar-inverse">
         <div class="container-fluid">
           <div class="navbar-header">
-            <a class="navbar-brand" href="home.jsp">WebSiteName</a>
+            <a class="navbar-brand" href="home.jsp">Daily Grill</a>
           </div>
           <ul class="nav navbar-nav">
             <li class="active"><a href="#">Login</a></li>
@@ -65,7 +65,7 @@ response.setHeader("Expires","0"); //Proxies
                 <button class="btn btn-lg btn-primary btn-block" type="submit">
                     Sign in</button>
                 
-                <a href="#" class="pull-right need-help">Need help? </a><span class="clearfix"></span>
+                <a href="contactUs.jsp" class="pull-right need-help">Need help? </a><span class="clearfix"></span>
                 </form>
             </div>
             <a href="register.jsp" class="text-center new-account">Create an account </a>
